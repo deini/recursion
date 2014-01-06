@@ -6,22 +6,25 @@
 // But in stead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
   // your code here
-  var arr = []
+  var elements = [];
 
-  var getElements = function (element) {
+  var getElements = function(element) {
     var childNodes = element.childNodes;
-    
+
     for(var i = 0; i < childNodes.length; i++) {
-      if(childNodes[i].classList) {
-        if(childNodes[i].classList.contains(className)) {
-          arr.push(childNodes[i]);
+      var current = childNodes[i];
+
+      if(current.classList) {
+        if(current.classList.contains(className)) {
+          elements.push(current);
         }
       }
-      if(childNodes[i].childNodes) {
-        getElements(childNodes[i]);
+      if(current.childNodes) {
+        getElements(current);
       }
     }
-    return arr;
+    return elements;
   };
+
   return getElements(document.body);
 };
